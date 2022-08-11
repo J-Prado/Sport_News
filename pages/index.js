@@ -5,6 +5,7 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index.js";
 import NewsItem from "@/components/NewsItem";
+import {data} from "./api/news/data.json"
 
 export default function HomePage({ news }) {
   return (
@@ -34,23 +35,23 @@ export default function HomePage({ news }) {
 //   };
 // }
 
-export async function getStaticPaths() {
-  const articles = await fetch(`${API_URL}/api/news`);/* db query to get the list of articles or fetch from remote API*/
+// export async function getStaticPaths() {
+//   const articles = await fetch(`${API_URL}/api/news`);/* db query to get the list of articles or fetch from remote API*/
 
-  // generate a list of paths with route params
-  const paths = articles.map(article => ({ params: { articleId: article.id }}))
+//   // generate a list of paths with route params
+//   const paths = articles.map(article => ({ params: { articleId: article.id }}))
 
-  return {
-     paths,
-     fallback: false 
-     // fallback can be  true if you want to show a fallback version of page 
-     // and serve JSON for unknown articles
-  }
+//   return {
+//      paths,
+//      fallback: false 
+//      // fallback can be  true if you want to show a fallback version of page 
+//      // and serve JSON for unknown articles
+//   }
 
-}
+// }
  export async function getStaticProps({params,res}) {
   try {
-  const result = await fetch(`${API_URL}/api/news`);
+  const result = await data;
   const news = await result.json();
   return {
     props: { news: news.slice(0, 5) },
@@ -60,7 +61,7 @@ export async function getStaticPaths() {
   res.statusCode=404;
   return {
     
-    props: {news:{}},
+    props: {},
   }
 }
 }
