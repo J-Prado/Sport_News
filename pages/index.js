@@ -35,17 +35,19 @@ export default function HomePage({ news }) {
 // }
 
 
- async function getStaticProps() {
+ async function getStaticProps({params,res}) {
   try {
-  const res = await fetch(`${API_URL}/api/news`);
-  const news = await res.json();
+  const result = await fetch(`${API_URL}/api/news`);
+  const news = await result.json();
   return {
     props: { news: news.slice(0, 5) },
-    revalidate: 1,
+    revalidate: 10,
   };
 } catch (error) {
+  res.statusCode=404;
   return {
-    props: null
+    
+    props: {},
   }
 }
 }
