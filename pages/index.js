@@ -34,7 +34,20 @@ export default function HomePage({ news }) {
 //   };
 // }
 
+export async function getStaticPaths() {
+  const articles = await fetch(`${API_URL}/api/news`);/* db query to get the list of articles or fetch from remote API*/
 
+  // generate a list of paths with route params
+  const paths = articles.map(article => ({ params: { articleId: article.id }}))
+
+  return {
+     paths,
+     fallback: false 
+     // fallback can be  true if you want to show a fallback version of page 
+     // and serve JSON for unknown articles
+  }
+
+}
  async function getStaticProps({params,res}) {
   try {
   const result = await fetch(`${API_URL}/api/news`);
