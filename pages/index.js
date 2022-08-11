@@ -25,15 +25,7 @@ export default function HomePage({ news }) {
   );
 }
 
-// export async function getServerSideProps() {
-//   const res = await fetch(`${API_URL}/api/news`);
-//   const news = await res.json();
-//   return {
-//     props: { news },
-//   };
-// }
-
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${API_URL}/api/news`);
   const news = await res.json();
   return {
@@ -41,3 +33,13 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 }
+
+
+//  async function getStaticProps() {
+//   const res = await fetch(`${API_URL}/api/news`);
+//   const news = await res.json();
+//   return {
+//     props: { news: news.slice(0, 5) },
+//     revalidate: 1,
+//   };
+// }
