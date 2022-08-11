@@ -25,8 +25,14 @@ export default function HomePage({ news }) {
   );
 }
 
+async function fetched(){
+  return await fetch(`${API_URL}/api/news`);
+}
+
+
+
 export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/api/news`);
+  const res = fetched();
   const news = await res.json();
   return {
     props: { news: news.slice(0, 5) },
