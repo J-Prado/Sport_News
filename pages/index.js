@@ -53,8 +53,8 @@ export default function HomePage({ news }) {
 
  export async function getStaticProps({params,res}) {
   try {
-  const result = await news;
-  const news = await result.json();
+  const result = await news
+  // const news2 = await result.json();
   return {
     props: { news: news.slice(0, 5) },
     revalidate: 10,
