@@ -47,7 +47,7 @@ export default function HomePage({ news }) {
   res.statusCode=404;
   return {
     
-    props: {},
+    props: {news:{}},
   }
 }
 }
