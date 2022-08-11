@@ -5,7 +5,7 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index.js";
 import NewsItem from "@/components/NewsItem";
-import {news} from "./api/news/data.json"
+import {data} from "./api/news/data.json"
 
 export default function HomePage({ news }) {
   return (
@@ -49,12 +49,10 @@ export default function HomePage({ news }) {
 //   }
 
 // }
-
-
  export async function getStaticProps({params,res}) {
   try {
-  const result = await news
-  // const news2 = await result.json();
+  const result = await fetch(`${API_URL}/api/news`);
+  const news = await result.json();
   return {
     props: { news: news.slice(0, 5) },
     revalidate: 10,
