@@ -25,23 +25,7 @@ export default function HomePage({ news }) {
   );
 }
 
-async function fetched(){
-  return await fetch(`${API_URL}/api/news`);
-}
-
-
-
-export async function getServerSideProps() {
-  const res = fetched();
-  const news = await res.json();
-  return {
-    props: { news: news.slice(0, 5) },
-    revalidate: 1,
-  };
-}
-
-
-//  async function getStaticProps() {
+// export async function getServerSideProps() {
 //   const res = await fetch(`${API_URL}/api/news`);
 //   const news = await res.json();
 //   return {
@@ -49,3 +33,20 @@ export async function getServerSideProps() {
 //     revalidate: 1,
 //   };
 // }
+
+
+ async function getStaticProps() {
+  try {
+  const res = await fetch(`${API_URL}/api/news`);
+  const news = await res.json();
+  return {
+    props: { news: news.slice(0, 5) },
+    revalidate: 1,
+  };
+} catch (error) {
+  return {
+    props: null
+  }
+}
+}
+
